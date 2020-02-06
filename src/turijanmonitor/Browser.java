@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Browser {
+	Messege ElMsg;
 	FileReader FileRead;
 	BufferedReader objReader;
 	List<String> list;
@@ -15,6 +16,7 @@ public class Browser {
 	String ruta;
 	
 	public Browser(){
+		ElMsg = new Messege();
 		ruta = "C:\\Users\\turijana\\Downloads\\GAMA\\GAMA_190527_001_1612\\GAMA_190527_001_1612.dat_m";
 		try {
 			FileRead = new FileReader (ruta);
@@ -28,57 +30,41 @@ public class Browser {
 	
 	public void leerArchivo(int posInicial, int posFinal) {
 		int contadorbuffer = 0;
+		int Tamlinea = 74;
 		int countlineas = 0;
 		int num;
 		String aux = "476I";
 		try {
-			String linea;
-			while ( (linea = objReader.readLine()) != null ) {	
-				
-		/*		if(objReader.readLine().length() < 72) {
-					System.out.println("sali");
-					break;
-				}*/
-				
-				if(linea.substring(9, 13).equals(aux)) {
-					System.out.println("linea :"+countlineas+" bytebuffer " + contadorbuffer);
-					lista(contadorbuffer-74);
-					break;
+			String linea = null;
+			while ( (linea = objReader.readLine()) != null ) {
+				if(linea.contains(aux)) {
+					System.out.println("linea :"+countlineas+" bytebuffer " + contadorbuffer +" x :"+linea.substring(9, 13).length());
+					lista(contadorbuffer);
+					System.out.println("aux :"+aux+" linea: "+linea +" subs :"+linea.substring(9,13));
 				}
 				countlineas++;
-				contadorbuffer = contadorbuffer + 74;
+				contadorbuffer += Tamlinea;
 			}
 			}catch (IOException e) {
 				e.printStackTrace();
 			}
-	//	System.out.println("****************"+contadorbuffer+"-"+aux+" "+countlineas );
 	}
 	
 	public ArrayList lista(int contador) {
 		int valor = 1;
-		String linea2 ;
 		try {
+			String readLine =" ";
 			System.out.println("-----"+contador);
-//			raf.seek(160);
-//			System.out.println(raf.readLine());
-//			raf.seek(161);
-//			System.out.println(raf.readLine());
-//			raf.seek(137270);
-//			System.out.println(raf.readLine());
-			
 			raf.seek(contador);
-			while((valor < 15) && (raf.readLine() != null)) {				
-				System.out.println(raf.readLine());
+			while((valor < 10) && (readLine != null)) {				
+				System.out.println(readLine = raf.readLine());
 				valor++;
 			}
 			System.out.println("-----");
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
 		return null;
 	}
 	
@@ -87,7 +73,6 @@ public class Browser {
 			FileRead.close();
 			raf.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

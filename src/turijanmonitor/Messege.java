@@ -35,7 +35,7 @@ public class Messege {
                "\nMessage Number: " + this.messageNumber +
                "\nreference: "      + this.reference     +
                "\nreferenceType: "  + this.referenceType +
-               "\nContent: "        + this.content;
+               "\nContent: "        + this .content;
     }
 
 }
